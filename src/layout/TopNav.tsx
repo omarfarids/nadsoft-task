@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { setIsLightMode } from "@/store/reducers/globalReducer";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 // ---------- constants -----------
 const SIDE_NAV_WIDTH = "100%";
@@ -18,7 +19,9 @@ export const TopNav = ({ onNavOpen }: { onNavOpen: () => void }) => {
   // const [isLightMode, setIsLightMode] = useState(true);
   const accountPopover = usePopover();
   const dispatch = useDispatch();
-  const { isLightMode } = useSelector((state: RootState) => state.global);
+  const { isLightMode, USstate } = useSelector(
+    (state: RootState) => state.global
+  );
 
   // ------------ side effects -----------
   useEffect(() => {
@@ -93,9 +96,10 @@ export const TopNav = ({ onNavOpen }: { onNavOpen: () => void }) => {
                 <button
                   onClick={accountPopover.handleOpen}
                   ref={accountPopover.anchorRef}
-                  className="shadow-sm hover:shadow-lg font-medium p-3 rounded-full"
+                  className="shadow-sm hover:shadow-lg font-medium py-3 rounded-full w-32"
                 >
-                  Select state
+                  {USstate === "ALL" ? "Select State" : USstate}{" "}
+                  <ArrowDropDownIcon />
                 </button>
               </>
             </Tooltip>

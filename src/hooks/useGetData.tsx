@@ -7,7 +7,7 @@ type ErrorType = {
 
 const useGetData = (url: string) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [data, setData] = useState<any[] | null>(null);
+  const [data, setData] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<ErrorType | null>(null);
 
