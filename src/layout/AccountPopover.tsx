@@ -1,16 +1,9 @@
-import { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import {
-  Box,
-  Divider,
-  MenuItem,
-  MenuList,
-  Popover,
-  PopoverVirtualElement,
-  Typography,
-} from "@mui/material";
-import Cookies from "js-cookie";
+import { Box, Popover, PopoverVirtualElement, Typography } from "@mui/material";
+import useGetData from "@/hooks/useGetData";
+import { useDispatch } from "react-redux";
+import { setUSState } from "@/store/reducers/globalReducer";
+
 export const AccountPopover = ({
   anchorEl,
   onClose,
@@ -27,15 +20,18 @@ export const AccountPopover = ({
   open: boolean;
 }) => {
   // -------------- hooks ------------
-  const navigate = useNavigate();
+  const { data, loading, error } = useGetData("/v1/states/info.json");
+  const dispatch = useDispatch();
 
   // ------------- functions ---------------
-  const handleSignOut = useCallback(() => {
-    onClose?.();
-    Cookies.remove("token_");
 
-    navigate("/");
-  }, [onClose, navigate]);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
 
   return (
     <Popover
@@ -46,32 +42,51 @@ export const AccountPopover = ({
       }}
       onClose={onClose}
       open={open}
-      PaperProps={{ sx: { width: 200 } }}
+      PaperProps={{ sx: { width: 70 } }}
     >
       <Box
         sx={{
-          py: 1.5,
-          px: 2,
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        <Typography variant="overline">Account</Typography>
-        <Typography color="text.secondary" variant="body2">
-          {Cookies.get("username")}
+        <Typography
+          variant="overline"
+          sx={{
+            cursor: "pointer",
+            "&:hover": { bgcolor: "action.hover" },
+            p: 1,
+            textAlign: "center",
+          }}
+          onClick={() => {
+            dispatch(setUSState("ALL"));
+            onClose();
+          }}
+        >
+          All
         </Typography>
+        {data?.map((state: { state: string; notes: string }) => {
+          return (
+            <Typography
+              key={state.state}
+              title={state.notes}
+              variant="overline"
+              onClick={() => {
+                dispatch(setUSState(state.state));
+                onClose();
+              }}
+              sx={{
+                cursor: "pointer",
+                "&:hover": { bgcolor: "action.hover" },
+                p: 1,
+                textAlign: "center",
+              }}
+            >
+              {state.state}
+            </Typography>
+          );
+        })}
       </Box>
-      <Divider />
-      <MenuList
-        disablePadding
-        dense
-        sx={{
-          p: "8px",
-          "& > *": {
-            borderRadius: 1,
-          },
-        }}
-      >
-        <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
-      </MenuList>
     </Popover>
   );
 };

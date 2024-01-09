@@ -4,6 +4,8 @@ import { Box, ButtonBase, Collapse } from "@mui/material";
 import React from "react";
 import { dashboardItems } from "@/types/layout";
 import { LAYOUT_COLORS } from "@/assets/colors/layout";
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
 
 export const SideNavItem = ({
   active,
@@ -16,6 +18,7 @@ export const SideNavItem = ({
   onClick,
 }: dashboardItems) => {
   const [open, setOpen] = React.useState(true);
+  const { isLightMode } = useSelector((state: RootState) => state.global);
 
   // ------------- functions --------------
   const handleClick = () => {
@@ -49,17 +52,21 @@ export const SideNavItem = ({
           borderRadius: "5px",
           display: "flex",
           flexDirection: "row",
+          justifyContent: "flex-start",
+          pl: 2,
           gap: 1,
           color: LAYOUT_COLORS.sideBarTextColor,
           fontSize: 20,
           fontWeight: "bold",
           py: 2,
           ...(active && {
-            backgroundColor: LAYOUT_COLORS.sideBarItemActive,
+            backgroundColor: isLightMode
+              ? LAYOUT_COLORS.sideBarItemActive
+              : "#263038",
           }),
-          width: "250px",
+          width: 230,
           "&:hover": {
-            bgcolor: LAYOUT_COLORS.sideBarItemHover,
+            bgcolor: isLightMode ? LAYOUT_COLORS.sideBarItemHover : "#545454",
           },
         }}
         {...linkProps}
@@ -110,16 +117,16 @@ export const SideNavItem = ({
                     borderRadius: 1,
                     display: "flex",
                     justifyContent: "flex-start",
-
+                    pl: 2,
                     py: "6px",
                     textAlign: "left",
                     width: "100%",
                     ...(child.active && {
-                      backgroundColor: "primary.main",
+                      backgroundColor: "#cdcdcd",
                     }),
                     "&:hover": {},
                     ...(active && {
-                      backgroundColor: "primary.main",
+                      backgroundColor: "#cdcdcd",
                     }),
                   }}
                   href="/clients"
@@ -132,10 +139,10 @@ export const SideNavItem = ({
                         alignItems: "center",
                         color: "black",
                         display: "inline-flex",
-                        justifyContent: "center",
+                        justifyContent: "flex-start",
 
                         ...(active && {
-                          color: "white",
+                          color: "#cdcdcd",
                         }),
                       }}
                     >

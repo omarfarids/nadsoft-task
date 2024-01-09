@@ -1,26 +1,19 @@
 import { DashboardLayout } from "@/layout/DashboardLayout.tsx";
-
+import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import Login from "./modules/auth/pages/Login";
-import AuthGuard from "./modules/auth/pages/AuthGuard";
-import Dashboard from "./modules/dashboard/pages/Dashboard";
+
+const Dashboard = lazy(() => import("./modules/dashboard/pages/Dashboard"));
 
 function App() {
   return (
     <>
-      <Routes>
-        <Route index element={<Login />} />
-        <Route
-          path="/"
-          element={
-            <DashboardLayout>
-              <AuthGuard />
-            </DashboardLayout>
-          }
-        >
-          <Route path="dashboard" element={<Dashboard />} />
-        </Route>
-      </Routes>
+      <Suspense fallback="loading">
+        <DashboardLayout>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+          </Routes>
+        </DashboardLayout>
+      </Suspense>
     </>
   );
 }

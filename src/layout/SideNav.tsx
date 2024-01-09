@@ -6,12 +6,15 @@ import { SideNavItem } from "./SideNavItem";
 import { useTheme } from "@mui/material/styles";
 import { dashboardItems } from "@/types/layout";
 import { LAYOUT_COLORS } from "@/assets/colors/layout";
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
 
 export const SideNav = (props: { open: boolean; onClose: () => void }) => {
   // ----------- hooks -------------
   const { open, onClose } = props;
   const theme = useTheme();
   const lgUp: boolean = useMediaQuery(theme.breakpoints.up("lg"));
+  const { isLightMode } = useSelector((state: RootState) => state.global);
 
   // ------------ functions ---------------
 
@@ -31,8 +34,8 @@ export const SideNav = (props: { open: boolean; onClose: () => void }) => {
         sx={{
           flexGrow: 1,
           px: "5px",
-          py: 3,
-          pt: 12,
+          py: 2,
+          pt: 4,
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -66,7 +69,7 @@ export const SideNav = (props: { open: boolean; onClose: () => void }) => {
                 path={item.path}
                 title={item.title}
                 children={item.children}
-                module={"dashboard"}
+                module={item.module}
               />
             );
           })}
@@ -82,11 +85,14 @@ export const SideNav = (props: { open: boolean; onClose: () => void }) => {
         open
         PaperProps={{
           sx: {
-            backgroundColor: LAYOUT_COLORS.sideBarBackgroundColor,
+            backgroundColor: isLightMode
+              ? LAYOUT_COLORS.sideBarBackgroundColor
+              : "#000",
             color: "black",
-            width: 300,
+            width: 240,
             border: "none",
-
+            height: "100vh",
+            position: "relative",
             zIndex: 2,
           },
         }}
@@ -104,7 +110,9 @@ export const SideNav = (props: { open: boolean; onClose: () => void }) => {
       open={open}
       PaperProps={{
         sx: {
-          backgroundColor: "white",
+          backgroundColor: isLightMode
+            ? LAYOUT_COLORS.sideBarBackgroundColor
+            : "#000",
           color: "black",
           width: 280,
         },

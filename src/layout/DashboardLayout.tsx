@@ -4,15 +4,11 @@ import { SideNav } from "./SideNav";
 import { TopNav } from "./TopNav";
 import { useLocation } from "react-router-dom";
 
-const SIDE_NAV_WIDTH = 80;
-
-const LayoutRoot = styled("div")(({ theme }) => ({
+const LayoutRoot = styled("div")(() => ({
   display: "flex",
   flex: "1 1 auto",
-  maxWidth: "100%",
-  [theme?.breakpoints.up("lg")]: {
-    paddingLeft: SIDE_NAV_WIDTH,
-  },
+  width: "70%",
+  margin: 5,
 }));
 
 const LayoutContainer = styled("div")({
@@ -35,11 +31,13 @@ export const DashboardLayout = (props: { children: ReactNode }) => {
 
   return (
     <>
-      <SideNav onClose={() => setOpenNav(false)} open={openNav} />
       <TopNav onNavOpen={() => setOpenNav(true)} />
-      <LayoutRoot>
-        <LayoutContainer>{children}</LayoutContainer>
-      </LayoutRoot>
+      <div className="flex flex-row">
+        <SideNav onClose={() => setOpenNav(false)} open={openNav} />
+        <LayoutRoot>
+          <LayoutContainer>{children}</LayoutContainer>
+        </LayoutRoot>
+      </div>
     </>
   );
 };
