@@ -10,14 +10,12 @@ const Dashboard = () => {
   // ------------- functions ---------------
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <span className="loading loading-spinner loading-lg"></span>;
   }
 
   if (error) {
     return <p>Error: {error.message}</p>;
   }
-
-  console.log(data);
 
   return (
     <div>

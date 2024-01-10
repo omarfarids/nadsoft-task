@@ -8,7 +8,7 @@ const LayoutRoot = styled("div")(() => ({
   display: "flex",
   flex: "1 1 auto",
   width: "70%",
-  margin: 5,
+  margin: 25,
 }));
 
 const LayoutContainer = styled("div")({
