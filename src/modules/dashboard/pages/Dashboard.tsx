@@ -2,6 +2,7 @@ import React from "react";
 import useGetData from "@/hooks/useGetData";
 import StatFigures from "@/modules/dashboard/components/StatFigures";
 import News from "@/modules/dashboard/components/News";
+import Loading from "@/components/Loading";
 
 const Dashboard = () => {
   // -------------- hooks ------------
@@ -10,7 +11,7 @@ const Dashboard = () => {
   // ------------- functions ---------------
 
   if (loading) {
-    return <span className="loading loading-spinner loading-lg"></span>;
+    return <Loading />;
   }
 
   if (error) {

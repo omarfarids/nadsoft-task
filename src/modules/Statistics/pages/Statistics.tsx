@@ -3,6 +3,7 @@ import useGetData from "@/hooks/useGetData";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import StatCard from "../components/StatCard";
+import Loading from "@/components/Loading";
 
 const Statistics = () => {
   // -------------- hooks ------------
@@ -24,7 +25,7 @@ const Statistics = () => {
   }, [globalState.USstate]);
 
   if (loading) {
-    return <span className="loading loading-spinner loading-lg"></span>;
+    return <Loading />;
   }
 
   if (error) {

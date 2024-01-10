@@ -14,7 +14,7 @@ const Table = ({ title, data }: TableDataProps) => {
           <thead className="bg-lightGray">
             <tr>
               {title?.map((item: any) => {
-                return <th>{item?.label}</th>;
+                return <th className="py-3 text-lg">{item?.label}</th>;
               })}
             </tr>
           </thead>
@@ -23,7 +23,7 @@ const Table = ({ title, data }: TableDataProps) => {
               return (
                 <tr>
                   {title.map((x: any) => {
-                    return <td>{item?.[x?.key] || 0}</td>;
+                    return <td className="py-3 px-4">{item?.[x?.key] || 0}</td>;
                   })}
                 </tr>
               );

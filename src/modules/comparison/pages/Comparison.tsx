@@ -1,6 +1,7 @@
 import React from "react";
 import Table from "../components/Table";
 import useGetData from "@/hooks/useGetData";
+import Loading from "@/components/Loading";
 
 const Comparison = () => {
   // -------------- hooks ------------
@@ -9,9 +10,8 @@ const Comparison = () => {
   // ------------- functions ---------------
 
   // ------------- side effects ---------------
-
   if (loading) {
-    return <span className="loading loading-spinner loading-lg"></span>;
+    return <Loading />;
   }
 
   if (error) {

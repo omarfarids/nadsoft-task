@@ -5,6 +5,7 @@ import { RootState } from "@/store/store";
 import useGetData from "@/hooks/useGetData";
 import Datepicker from "@/components/Datepicker";
 import Barchart from "../components/Barchart";
+import Loading from "@/components/Loading";
 
 const HistoricalData = () => {
   // -------------- hooks ------------
@@ -32,7 +33,7 @@ const HistoricalData = () => {
   }, [error]);
 
   if (loading) {
-    return <span className="loading loading-spinner loading-lg"></span>;
+    return <Loading />;
   }
 
   return (

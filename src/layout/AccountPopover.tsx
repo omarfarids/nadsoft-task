@@ -26,7 +26,7 @@ export const AccountPopover = ({
   // ------------- functions ---------------
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p className="text-center">Loading...</p>;
   }
 
   if (error) {
