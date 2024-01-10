@@ -27,44 +27,44 @@ const StatCard = ({
       <div className="p-5">
         <p className="text-md pb-3 text-gray">
           Positive Cases:{" "}
-          <p className="text-lg inline-block text-black font-bold">
+          <span className="text-lg inline-block text-black font-bold">
             {positive || 0}
-          </p>
+          </span>
         </p>
 
         <p className="text-md pb-3 text-gray">
           Negative Deaths:{" "}
-          <p className="text-lg text-black inline-block font-bold">
+          <span className="text-lg text-black inline-block font-bold">
             {negative || 0}
-          </p>
+          </span>
         </p>
 
         <p className="text-md pb-3 text-gray">
           Pending:{" "}
-          <p className="text-lg text-black inline-block font-bold">
+          <span className="text-lg text-black inline-block font-bold">
             {pending || 0}
-          </p>
+          </span>
         </p>
 
         <p className="text-md pb-3 text-gray">
           hospitalized:{" "}
-          <p className="text-lg text-black inline-block font-bold">
+          <span className="text-lg text-black inline-block font-bold">
             {hospitalized || 0}
-          </p>
+          </span>
         </p>
 
         <p className="text-md pb-3 text-gray">
           ICU:{" "}
-          <p className="text-lg text-black inline-block font-bold">
+          <span className="text-lg text-black inline-block font-bold">
             {inIcuCurrently || 0}
-          </p>
+          </span>
         </p>
 
         <p className="text-md pb-3 text-gray">
           Ventilator:{" "}
-          <p className="text-lg text-black inline-block font-bold">
+          <span className="text-lg text-black inline-block font-bold">
             {onVentilatorCurrently || 0}
-          </p>
+          </span>
         </p>
       </div>
     </div>

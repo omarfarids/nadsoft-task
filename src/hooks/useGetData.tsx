@@ -11,18 +11,18 @@ const useGetData = (url: string) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<ErrorType | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://api.covidtracking.com" + url);
-        setData(response.data);
-      } catch (error: unknown) {
-        setError(error as ErrorType);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("https://api.covidtracking.com" + url);
+      setData(response.data);
+    } catch (error: unknown) {
+      setError(error as ErrorType);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, [url]);
 

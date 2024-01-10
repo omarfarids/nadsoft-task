@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Barchart from "../components/Barchart";
+import Donutchart from "../components/Donutchart";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import useGetData from "@/hooks/useGetData";
 import Datepicker from "@/components/Datepicker";
+import Barchart from "../components/Barchart";
 
 const HistoricalData = () => {
   // -------------- hooks ------------
@@ -40,13 +41,48 @@ const HistoricalData = () => {
       </div>
 
       <div className="flex flex-col md:flex-row gap-5 justify-evenly">
-        <Barchart
+        <Donutchart
+          title="Positive/Negative"
           series={[data?.positive || 0, data?.negative || 0]}
           labels={["Positive", "Negative"]}
           loading={loading}
         />
-        <Barchart
+        <Donutchart
+          title="Hospitalized/Recovered"
           series={[data?.hospitalized || 0, data?.recovered || 0]}
+          labels={["Hospitalized", "Recovered"]}
+          loading={loading}
+        />
+      </div>
+      <div>
+        <Barchart
+          title="Overall review"
+          series={[
+            {
+              name: "Hospitalized",
+              data: [+data?.hospitalized || 0],
+            },
+            {
+              name: "Hospitalized Increase",
+              data: [+data?.hospitalizedIncrease || 0],
+            },
+            {
+              name: "negative",
+              data: [+data?.negative || 0],
+            },
+            {
+              name: "negative Increase",
+              data: [+data?.negativeIncrease || 0],
+            },
+            {
+              name: "positive",
+              data: [+data?.positive || 0],
+            },
+            {
+              name: "positive Increase",
+              data: [+data?.positiveIncrease || 0],
+            },
+          ]}
           labels={["Hospitalized", "Recovered"]}
           loading={loading}
         />

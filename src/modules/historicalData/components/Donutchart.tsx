@@ -4,19 +4,19 @@ import ReactApexChart from "react-apexcharts";
 
 import { uniqueColors } from "@/constants/constants";
 
-export default function Barchart({
+export default function Donutchart({
   series,
   labels,
   loading,
   title,
 }: {
-  series: { name: string; data: number[] }[];
+  series: number[];
   labels: string[];
-  title: string;
   loading: boolean;
+  title: string;
 }) {
   return (
-    <div className="border border-[#091E4224] w-full my-5">
+    <div className="border border-[#091E4224] w-full">
       <div className="border-b p-3 bg-lightGray text-lg border-[#091E4224] ">
         <p className="font-bold">{title}</p>
       </div>
@@ -36,36 +36,64 @@ export default function Barchart({
 
 const Chart = ({
   series: seriesData,
+  labels: labelsData,
 }: {
-  series: { name: string; data: number[] }[];
+  series: number[];
   labels: string[];
 }) => {
   const [series] = useState(seriesData);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [options] = useState<any>({
     chart: {
-      type: "bar",
-      height: 350,
-    },
-    colors: uniqueColors,
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: "20%",
-        endingShape: "rounded",
+      id: "pie-chart",
+      type: "pie",
+      animations: {
+        enabled: false,
       },
+    },
+
+    colors: uniqueColors,
+    stroke: {
+      show: false,
     },
     dataLabels: {
       enabled: false,
     },
-    stroke: {
-      show: true,
-      width: 4,
-      colors: ["transparent"],
-    },
+    labels: labelsData,
+    legend: {
+      floating: false,
+      position: "bottom",
+      fontWeight: 600,
+      fontFamily: "GothamPro",
+      fontSize: "14px",
 
-    fill: {
-      opacity: 1,
+      labels: {
+        colors: "var(--dark)",
+      },
+      markers: {
+        radius: 0,
+        offsetX: "-5px",
+      },
+      itemMargin: {
+        vertical: 10,
+        horizontal: 10,
+      },
+    },
+    tooltip: {
+      theme: "light",
+      y: {
+        formatter: undefined,
+        title: {
+          formatter: () => "USD",
+        },
+      },
+    },
+    states: {
+      hover: {
+        filter: {
+          type: "none",
+        },
+      },
     },
   });
   return (
@@ -73,7 +101,7 @@ const Chart = ({
       <ReactApexChart
         options={options}
         series={series}
-        type="bar"
+        type="donut"
         height={400}
       />
     </div>
