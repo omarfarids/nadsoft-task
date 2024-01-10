@@ -8,10 +8,11 @@ import Barchart from "../components/Barchart";
 
 const HistoricalData = () => {
   // -------------- hooks ------------
-  const [url, setUrl] = useState<string>("");
+  const [url, setUrl] = useState<string | null>(null);
   const [date, setDate] = useState<string>("20200501");
   const globalState = useSelector((state: RootState) => state.global);
-  const { data, loading } = useGetData(url);
+  const [isErrorMessage, setIsErrorMessage] = useState(false);
+  const { data, loading, error } = useGetData(url);
 
   // ------------- functions ---------------
 
@@ -26,10 +27,13 @@ const HistoricalData = () => {
     );
   }, [globalState?.USstate, date]);
 
+  useEffect(() => {
+    error ? setIsErrorMessage(true) : setIsErrorMessage(false);
+  }, [error]);
+
   if (loading) {
     return <span className="loading loading-spinner loading-lg"></span>;
   }
-  console.log(data);
 
   return (
     <div>
@@ -38,6 +42,11 @@ const HistoricalData = () => {
       </div>
       <div className="mb-5">
         <Datepicker value={date} setValue={setDate} />
+        {isErrorMessage && (
+          <p className="text-red text-sm font-semibold py-1">
+            Date is out of range
+          </p>
+        )}
       </div>
 
       <div className="flex flex-col md:flex-row gap-5 justify-evenly">
@@ -58,32 +67,21 @@ const HistoricalData = () => {
         <Barchart
           title="Overall review"
           series={[
-            {
-              name: "Hospitalized",
-              data: [+data?.hospitalized || 0],
-            },
-            {
-              name: "Hospitalized Increase",
-              data: [+data?.hospitalizedIncrease || 0],
-            },
-            {
-              name: "negative",
-              data: [+data?.negative || 0],
-            },
-            {
-              name: "negative Increase",
-              data: [+data?.negativeIncrease || 0],
-            },
-            {
-              name: "positive",
-              data: [+data?.positive || 0],
-            },
-            {
-              name: "positive Increase",
-              data: [+data?.positiveIncrease || 0],
-            },
+            +data?.hospitalized || 0,
+            +data?.hospitalizedIncrease || 0,
+            +data?.negative || 0,
+            +data?.negativeIncrease || 0,
+            +data?.positive || 0,
+            +data?.positiveIncrease || 0,
           ]}
-          labels={["Hospitalized", "Recovered"]}
+          labels={[
+            "Hospitalized",
+            "Hospitalized Increase",
+            "negative",
+            "negative Increase",
+            "positive",
+            "positive Increase",
+          ]}
           loading={loading}
         />
       </div>

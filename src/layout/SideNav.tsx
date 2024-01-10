@@ -34,8 +34,6 @@ export const SideNav = (props: { open: boolean; onClose: () => void }) => {
         sx={{
           flexGrow: 1,
           px: "5px",
-          py: 2,
-          pt: 4,
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -92,7 +90,8 @@ export const SideNav = (props: { open: boolean; onClose: () => void }) => {
             width: 240,
             border: "none",
             height: "100vh",
-            position: "relative",
+            py: 10,
+            position: "fixed",
             zIndex: 2,
           },
         }}

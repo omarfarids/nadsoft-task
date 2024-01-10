@@ -21,13 +21,15 @@ export default function Donutchart({
         <p className="font-bold">{title}</p>
       </div>
 
-      <div className="chart-area d-flex align-items-center justify-content-center pb-0">
-        {series && series.length ? (
-          <Chart series={series} labels={labels} />
+      <div className="chart-area d-flex align-items-center justify-content-center pb-0 h-96">
+        {series[0] === 0 && series[1] === 0 ? (
+          <p className="w-full h-full my-auto text-center flex justify-center items-center font-bold">
+            No data to display!
+          </p>
         ) : loading ? (
           <span className="loading loading-spinner loading-lg"></span>
         ) : (
-          <p className="w-full h-full my-auto text-center ">No data</p>
+          <Chart series={series} labels={labels} />
         )}
       </div>
     </div>
@@ -41,7 +43,6 @@ const Chart = ({
   series: number[];
   labels: string[];
 }) => {
-  const [series] = useState(seriesData);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [options] = useState<any>({
     chart: {
@@ -83,9 +84,6 @@ const Chart = ({
       theme: "light",
       y: {
         formatter: undefined,
-        title: {
-          formatter: () => "USD",
-        },
       },
     },
     states: {
@@ -100,7 +98,7 @@ const Chart = ({
     <div className="w-100">
       <ReactApexChart
         options={options}
-        series={series}
+        series={seriesData}
         type="donut"
         height={400}
       />

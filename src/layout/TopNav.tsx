@@ -72,7 +72,7 @@ export const TopNav = ({ onNavOpen }: { onNavOpen: () => void }) => {
                       },
                     }}
                   >
-                    <p>LOGO</p>
+                    <p className="text-2xl font-black text-blue">Covid-19</p>
                   </Box>
                 </Link>
                 <Box
@@ -96,7 +96,7 @@ export const TopNav = ({ onNavOpen }: { onNavOpen: () => void }) => {
                 <button
                   onClick={accountPopover.handleOpen}
                   ref={accountPopover.anchorRef}
-                  className="shadow-sm hover:shadow-lg font-medium py-3 rounded-full w-32"
+                  className="shadow-sm hover:shadow-lg font-medium py-3 w-36 btn"
                 >
                   {USstate === "ALL" ? "Select State" : USstate}{" "}
                   <ArrowDropDownIcon />

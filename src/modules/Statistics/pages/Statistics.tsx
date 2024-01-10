@@ -6,7 +6,7 @@ import StatCard from "../components/StatCard";
 
 const Statistics = () => {
   // -------------- hooks ------------
-  const [url, setUrl] = useState<string>("");
+  const [url, setUrl] = useState<string | null>(null);
   const globalState = useSelector((state: RootState) => state.global);
   const { data, loading, error } = useGetData(url);
 

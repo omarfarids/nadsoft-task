@@ -3,13 +3,7 @@ import { styled } from "@mui/material/styles";
 import { SideNav } from "./SideNav";
 import { TopNav } from "./TopNav";
 import { useLocation } from "react-router-dom";
-
-const LayoutRoot = styled("div")(() => ({
-  display: "flex",
-  flex: "1 1 auto",
-  width: "70%",
-  margin: 25,
-}));
+import { Box } from "@mui/material";
 
 const LayoutContainer = styled("div")({
   display: "flex",
@@ -32,11 +26,12 @@ export const DashboardLayout = (props: { children: ReactNode }) => {
   return (
     <>
       <TopNav onNavOpen={() => setOpenNav(true)} />
-      <div className="flex flex-row">
+      <div className="">
         <SideNav onClose={() => setOpenNav(false)} open={openNav} />
-        <LayoutRoot>
+
+        <Box sx={{ p: 5, ml: { lg: 30, sx: 0 } }}>
           <LayoutContainer>{children}</LayoutContainer>
-        </LayoutRoot>
+        </Box>
       </div>
     </>
   );

@@ -18,8 +18,6 @@ const Comparison = () => {
     return <p>Error: {error.message}</p>;
   }
 
-  console.log(data);
-
   return (
     <div>
       <p className="font-bold text-2xl mb-10">State Comparison</p>

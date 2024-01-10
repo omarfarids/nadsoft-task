@@ -15,6 +15,7 @@ const useGetData = (url: string) => {
     try {
       const response = await axios.get("https://api.covidtracking.com" + url);
       setData(response.data);
+      setError(null);
     } catch (error: unknown) {
       setError(error as ErrorType);
     } finally {
@@ -23,10 +24,12 @@ const useGetData = (url: string) => {
   };
 
   useEffect(() => {
-    fetchData();
+    if (url) {
+      fetchData();
+    }
   }, [url]);
 
-  return { data, loading, error };
+  return { data, loading, error, fetchData };
 };
 
 export default useGetData;

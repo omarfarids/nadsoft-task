@@ -2,19 +2,19 @@ import { useState } from "react";
 
 import ReactApexChart from "react-apexcharts";
 
-import { uniqueColors } from "@/constants/constants";
-
 export default function Barchart({
   series,
   labels,
   loading,
   title,
 }: {
-  series: { name: string; data: number[] }[];
+  series: number[];
   labels: string[];
   title: string;
   loading: boolean;
 }) {
+  console.log(series, title);
+
   return (
     <div className="border border-[#091E4224] w-full my-5">
       <div className="border-b p-3 bg-lightGray text-lg border-[#091E4224] ">
@@ -36,18 +36,17 @@ export default function Barchart({
 
 const Chart = ({
   series: seriesData,
+  labels: labelsData,
 }: {
-  series: { name: string; data: number[] }[];
+  series: number[];
   labels: string[];
 }) => {
-  const [series] = useState(seriesData);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [options] = useState<any>({
     chart: {
       type: "bar",
       height: 350,
     },
-    colors: uniqueColors,
     plotOptions: {
       bar: {
         horizontal: false,
@@ -57,6 +56,9 @@ const Chart = ({
     },
     dataLabels: {
       enabled: false,
+    },
+    xaxis: {
+      categories: labelsData,
     },
     stroke: {
       show: true,
@@ -72,7 +74,7 @@ const Chart = ({
     <div className="w-100">
       <ReactApexChart
         options={options}
-        series={series}
+        series={[{ data: seriesData }]}
         type="bar"
         height={400}
       />
